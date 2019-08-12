@@ -8,7 +8,7 @@ python bot.py
 ```
 And you're all set to go!
 
-## Built by
+## Built with ❤️ by
 
 * [Aldas](https://github.com/AXDZ) - The ceo of LIXER
 * [Artemis](https://github.com/ArtemisFowlJnr) - Python developer of LIXER
