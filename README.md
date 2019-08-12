@@ -4,7 +4,7 @@ Simple discord bot that can geolocate ips using an api, this code is messy and w
 # Self hosting
 You've to replace token in hidden with your own discord token and api key with your own api key from ipdata.co website, you can register for free there at https://ipdata.co/sign-up.html. Thats all you would need, now you can launch your discord discord bot by doing this command
 ```
-python main.py
+python bot.py
 ```
 And you're all set to go!
 
