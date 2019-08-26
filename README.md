@@ -12,7 +12,6 @@ python bot.py
 ```
 And you're all set to go!
 
-
 ## Built with ❤️ by
 
 * [Aldas](https://github.com/AXDZ) - The ceo of LIXER
