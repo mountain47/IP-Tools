@@ -78,7 +78,7 @@ async def on_message(m):
             ip_address = re.match(r"^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$", message_split[1])
             if ip_address:
                 ip_address = ip_address.group(0)
-                response = send_request(ip_address, 'theapi_key')
+                response = send_request(ip_address, theapi_key)
                 await m.channel.send(response) 
             else:
                 await m.channel.send('Invalid IP-address')
