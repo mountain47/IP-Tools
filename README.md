@@ -1,4 +1,4 @@
-# IP Tacker
+# IP Tracker
 Simple python discord bot that can geolocate ips using an api, this code is messy and we are not willing to keep support for this code in the future!
 
 # Self hosting
