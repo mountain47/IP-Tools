@@ -1,4 +1,4 @@
-# IP Tracker
+# IP Tracker [![Python 3.x](https://img.shields.io/badge/Python-3.x-yellow.svg)](http://www.python.org/download/)
 Simple python discord bot that can geolocate ips using an api, this code is messy and we are not willing to keep support for this code in the future!
 
 # Self hosting
