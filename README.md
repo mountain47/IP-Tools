@@ -4,10 +4,10 @@ Simple python discord bot that can geolocate ips using an api, this code is mess
 # Self hosting
 You can find guide how to do that in IP Tools [wiki](https://github.com/lixeri/IP-Tools/wiki)
 
-# NEED HELP?
+# Need help?
 You can join our [discord server](https://discord.gg/Zyp2wgm)
 
-## Built with ❤️ by
+# Built with ❤️ by
 
 * [Aldas](https://github.com/AXDZ) - The ceo of LIXER
 * [Artemis](https://github.com/ArtemisFowlJnr) - Python developer of LIXER
