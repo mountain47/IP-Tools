@@ -1,10 +1,21 @@
-import requests, json, discord, re
-from hidden import token, theapi_key
+#imports all the modules that we will need
+import requests
+import discord
+from discord.ext import commands
+import socket
+import json
+import re
 
-def send_request(ip_address, api_key):
-    response = requests.get('https://api.ipdata.co/%s?api-key=%s' % (ip_address, api_key))
-    response_json = json.loads(response.text)
-    return f'''
+#imports token, prefix and api key from hidden.py file
+from hidden import token, lapi_key, prefix
+
+
+
+#function to send requests to api and get custom response
+def lookup_ip(ip_address):
+	response = requests.get(f'https://api.ipdata.co/{ip_address}?api-key={lapi_key}')
+	response_json = json.loads(response.text)
+	return f'''
 ```
 IP: {str(response_json['ip'])}
 
@@ -33,11 +44,14 @@ Native language: {str(response_json['languages'][0]['native'])}
 
 BASIC INFO
 
-Organisation: {str(response_json['organisation'])}
-asn: {str(response_json['asn'])}
+asn: {str(response_json['asn']['asn'])}
+Name: {str(response_json['asn']['name'])}
+Domain: {str(response_json['asn']['domain'])}
+Route: {str(response_json['asn']['route'])}
+Type: {str(response_json['asn']['type'])}
 
 
-EXTRA INFO 
+EXTRA INFO
 
 TOR: {str(response_json['threat']['is_tor'])}
 Proxy: {str(response_json['threat']['is_proxy'])}
@@ -46,57 +60,84 @@ Abuser: {str(response_json['threat']['is_known_abuser'])}
 Threat: {str(response_json['threat']['is_threat'])}
 Bogon: {str(response_json['threat']['is_bogon'])}```'''
 
-client = discord.Client()
 
-#bot start
-@client.event
+
+#sets the prefix and stuff...
+bot = commands.Bot(command_prefix = prefix)
+
+
+
+#on start activities for the bot
+@bot.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game('with IPS'))
-    print('Bot is ready!')
-    print(f'serving {len(client.guilds)} guilds')
-    
+	
+	#adds playing status
+	await bot.change_presence(status=discord.Status.online, activity=discord.Game('with IPS'))
+	
+	#tells that bot is online
+	print('Bot is online!')
+	#tells how much servers the bot is in
+	print(f'serving {len(bot.guilds)} guilds')
+
+
+
+#ping command
+@bot.command(name='ping')
+async def ping(ctx):
+	"""sends bot's ping"""
+	#above is an description of the command
+	
+	#sends the ping
+	await ctx.send(f'My ping is {round(bot.latency * 1000)}ms')
+
+
+
+#info (about) command
+@bot.command(name='info', aliases=['about'])
 async def info(ctx):
-    embed = discord.Embed(title='IP Tools', description='This discord bot lets you geolocate ip addresses.', color=0xeee657)
-
-    # give info about you here
-    embed.add_field(name='Made by', value='lixer.net')
-
-    # Shows the number of servers the bot is member of.
-    embed.add_field(name='Server count', value=f'{len(client.guilds)}')
-
-    # give users a link to invite thsi bot to their server
-    embed.add_field(name='Invite', value='https://discordapp.com/api/oauth2/authorize?client_id=592734034912870400&permissions=2146958847&redirect_uri=https%3A%2F%2Fdiscord.gg%2FcpRpK3X&scope=bot')
-
-    await ctx.send(embed=embed)
-
-@client.event
-async def on_message(m):
-    message=m.content
-    if message.lower().startswith('.geo '):
-        message_split = message.split(' ')
-        if message_split[1]:
-            ip_address = re.match(r"^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$", message_split[1])
-            if ip_address:
-                ip_address = ip_address.group(0)
-                response = send_request(ip_address, theapi_key)
-                await m.channel.send(response) 
-            else:
-                await m.channel.send('Invalid IP-address')
-                
-    elif message.lower() == '.ping':
-        await m.channel.send(f'Pong! {round(client.latency * 1000)}ms')
-
-    elif message.lower() == '.info':
-        embed = discord.Embed(title='IP Tools', description='This discord bot lets you geolocate ip addresses.', color=0xeee657)
-        embed.add_field(name='Made by', value='lixer.net')
-        embed.add_field(name='Server count', value=f'{len(client.guilds)}')
-        embed.add_field(name='Invite', value='https://discordapp.com/api/oauth2/authorize?client_id=592734034912870400&permissions=2146958847&redirect_uri=https%3A%2F%2Fdiscord.gg%2FcpRpK3X&scope=bot')
-        embed.add_field(name='Our support server', value='https://discord.gg/cpRpK3X')
-        embed.add_field(name='Shoutout', value='Shoutout to Artemis#8032 who helped me build this.\nCalendar bot: https://discord.gg/hxKbHEN')
-        await m.channel.send(embed=embed)        
+	'''gives info about the bot'''
+	#above is an description of the command
+	
+	#description of the bot
+	embed = discord.Embed(title='IP Tools', description='This discord bot lets you lookup ip addresses and domains.', color=0xE528FF)
+	
+	#gives info about us here
+	embed.add_field(name='Made by', value='lixer.net')
+	
+	#give users a link to the source code
+	embed.add_field(name='Source code', value='https://github.com/lixeri/IP-Tools')
+	
+	#Shows the number of servers the bot is in
+	embed.add_field(name='Server count', value=f'{len(bot.guilds)}')
+    
+	#sends the embed message
+	await ctx.send(embed=embed)
 
 
-    elif message.startswith('.'):
-        await m.channel.send(':x: INVALID COMMAND :x:')
-        
-client.run(token)
+
+#geolocate (ip) command
+@bot.command(name='geo', aliases=['ip'])
+async def geo(ctx, *, ip):
+	"""looks up an ip address"""
+	#above is the description for the command
+
+	#runs the command
+	try:
+		#gets ip address
+		ip_address = __import__('socket').gethostbyname(ip)
+		#sends the info about the ip
+		await ctx.send(lookup_ip(ip_address))
+	
+	#message if there is socket error aka if there is no such an ip or domain
+	except socket.gaierror:
+		await ctx.send('There is no such an ip or domain')
+
+	#if some other kind of error occurs
+	except:
+		await ctx.send('Error has occured!')
+		print('Error has occured!')
+
+
+
+#runs the bot   
+bot.run(token, bot=True)
