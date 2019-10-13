@@ -5,7 +5,7 @@ Simple python discord bot that can geolocate ips using an api, this code is mess
 You can find guide how to do that in IP Tools [wiki](https://github.com/lixeri/IP-Tools/wiki)
 
 # Need help?
-You can join our [discord server](https://discord.gg/Zyp2wgm)
+You can join our [discord server](https://discord.gg/Zyp2wgm) and ask for help in there. Make sure to check our [wiki](https://github.com/lixeri/IP-Tools/wiki) first however
 
 # Built with ❤️ by
 
