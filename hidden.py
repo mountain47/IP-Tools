@@ -1,4 +1,4 @@
-token= "your_discord_bot_token"
+token = "your_discord_bot_token"
 
 prefix = "your_preferred_prefix"
 
