@@ -1,4 +1,4 @@
-# IP Tracker [![Python 3.x](https://img.shields.io/badge/Python-3.x-yellow.svg)](http://www.python.org/download/)
+# IP Tracker [![Python 3.x](https://img.shields.io/badge/PYTHON-3.X-blueviolet?style=for-the-badge)](http://www.python.org/download/) [![MIT License](https://img.shields.io/badge/LICENSE-MIT-brightgreen?style=for-the-badge)](https://github.com/lixeri/IP-Tools/blob/1.0/LICENSE)
 Simple python discord bot that can geolocate ips using an api
 
 # Self hosting
