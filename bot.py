@@ -124,7 +124,7 @@ async def geo(ctx, *, ip):
 	#runs the command
 	try:
 		#gets ip address
-		ip_address = __import__('socket').gethostbyname(ip)
+		ip_address = socket.gethostbyname(ip)
 		#sends the info about the ip
 		await ctx.send(lookup_ip(ip_address))
 	
