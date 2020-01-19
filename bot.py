@@ -7,7 +7,7 @@ import json
 import re
 
 #imports token, prefix and api key from hidden.py file
-from hidden import token, lapi_key, prefix
+from config import token, lapi_key, prefix
 
 
 
