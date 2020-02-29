@@ -10,4 +10,3 @@ You can join our [discord server](https://discord.gg/Zyp2wgm) and ask for help i
 # Built with ❤️ by
 
 * [Aldas](https://github.com/AXDZ) - The ceo of LIXER
-* [Artemis](https://github.com/ArtemisFowlJnr) - Python developer of LIXER
