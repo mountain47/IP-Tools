@@ -133,9 +133,9 @@ async def geo(ctx, *, ip):
 		await ctx.send('There is no such an ip or domain')
 
 	#if some other kind of error occurs
-	except:
+	except Exception as e:
 		await ctx.send('Error has occured!')
-		print('Error has occured!')
+		print(f'{e}\nError has occured!')
 
 
 
