@@ -12,7 +12,7 @@ from config import token, lapi_key, prefix
 
 
 #function to send requests to api and get custom response
-def lookup_ip(ip_address):
+async def lookup_ip(ip_address):
 	response = requests.get(f'https://api.ipdata.co/{ip_address}?api-key={lapi_key}')
 	response_json = json.loads(response.text)
 	return f'''
