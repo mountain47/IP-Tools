@@ -126,7 +126,7 @@ async def geo(ctx, *, ip):
 		#gets ip address
 		ip_address = socket.gethostbyname(ip)
 		#sends the info about the ip
-		await ctx.send(lookup_ip(ip_address))
+		await ctx.send(await lookup_ip(ip_address))
 	
 	#message if there is socket error aka if there is no such an ip or domain
 	except socket.gaierror:
